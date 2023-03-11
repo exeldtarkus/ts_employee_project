@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  mos_boooking_service:
+    image: node:16.16.0-slim
+    container_name: mos-booking-service
+    command:
+      - /bin/bash
+      - -c
+      - |
+        apt-get update
+        cd /www
+        chown root.root .
+        /usr/local/bin/npm install
+        /usr/local/bin/npm run build
+        /usr/local/bin/npm run start
+    ports:
+      - "8096:8096"
+    volumes:
+      - ./:/www
+    env_file:
+      - .env
